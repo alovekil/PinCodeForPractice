@@ -27,6 +27,7 @@ class SahredPreferenceManager {
                 value.toString()
             ) // value to store
             editor!!.commit()
+
         } else if (value is Boolean) {
             editor!!.putBoolean(
                 (key as String).lowercase(Locale.getDefault()),
