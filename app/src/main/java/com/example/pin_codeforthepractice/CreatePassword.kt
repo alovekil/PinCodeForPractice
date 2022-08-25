@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_create_password.*
+import androidx.navigation.Navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_create_password.view.*
 
 
 class CreatePassword : Fragment() {
-    var sharedPreferenceManager: SharedPreferance? = null
+    lateinit var sharedPreferenceManager: SahredPreferenceManager
     var radioList1: ArrayList<RadioButton> = ArrayList()
     var radioList2: ArrayList<RadioButton> = ArrayList()
     var password1:String? = ""
     var gpassword2:String? = ""
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,7 +29,7 @@ class CreatePassword : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view=inflater.inflate(R.layout.fragment_create_password, container, false)
-        sharedPreferenceManager = SharedPreferance(this.activity)
+        sharedPreferenceManager = SahredPreferenceManager()
         radioList2.add(view.radio1);
         radioList2.add(view.radio2);
         radioList2.add(view.radio3);
@@ -65,21 +67,20 @@ class CreatePassword : Fragment() {
     private fun radio1True(length: Int) {
         for(i in 0..4 ){
             if(i<length){
-                radioList2.get(i).isChecked
+                radioList1[i].isChecked = true
             }
             else{
-                radioList2.get(i).isChecked
+                radioList1[i].isChecked = false
             }
         }
     }
 
     private fun radio2True(length: Int) {
         for(i in 0..4 ){
-            if(i<length){
-                radioList1.get(i).isChecked
-            }
-            else{
-                radioList1.get(i).isChecked
+            if (i < length) {
+                radioList2[i].isChecked = true
+            } else {
+                radioList2[i].isChecked = false
             }
         }
     }
@@ -87,12 +88,11 @@ class CreatePassword : Fragment() {
     private fun passwordCheck(s: String) {
         if(password1!!.length<=3){
             password1+=s
-            radioList1.get(password1!!.length)
-
+            radio1True(password1!!.length)
         }
         else if(gpassword2!!.length<=3){
             gpassword2+=s
-            radioList2.get(gpassword2!!.length)
+            radio2True(gpassword2!!.length)
         }
         checkpaswordequal()
     }
@@ -100,8 +100,9 @@ class CreatePassword : Fragment() {
     private fun checkpaswordequal() {
         if (password1!!.length==4 && gpassword2!!.length==4){
             if(password1.equals(gpassword2)){
-                sharedPreferenceManager!!.setValue("password", password1!!)
-                sharedPreferenceManager!!.setValue("create_password", true)
+                view?.let { findNavController(it).navigate(R.id.navhost_create_to_login) }
+                sharedPreferenceManager.setValue("password", password1!!)
+                sharedPreferenceManager.setValue("create_password", true)
 
                 Toast.makeText(this.activity,"Succesfully", Toast.LENGTH_LONG)
                 /*val intent = Intent(this@Create_Password, ProfileActivity::class.java)

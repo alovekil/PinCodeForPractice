@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
-    var progressBar: ProgressBar? = null
-    var sharedPreferenceManager: SharedPreferance? = null
+
+    lateinit var sharedPreferenceManager: SahredPreferenceManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        sharedPreferenceManager = SahredPreferenceManager()
     }
 }

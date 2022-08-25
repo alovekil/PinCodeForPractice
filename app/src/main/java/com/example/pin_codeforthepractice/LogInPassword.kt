@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_create_password.view.*
 class LogInPassword : Fragment() {
     var password1 = ""
     //var radio1true:CreatePassword?=null
-    var sharedPreferenceManager: SharedPreferance? = null
+    lateinit var sharedPreferenceManager: SahredPreferenceManager
     var radioList1: ArrayList<RadioButton> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +25,9 @@ class LogInPassword : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.fragment_create_password, container, false)
-        sharedPreferenceManager = SharedPreferance(this.activity)
-        sharedPreferenceManager = SharedPreferance(getString(0,"de"))
+        val view=inflater.inflate(R.layout.fragment_log_in_password, container, false)
+        sharedPreferenceManager = SahredPreferenceManager()
+        sharedPreferenceManager.getString("password","de")
         radioList1.add(view.radio1);
         radioList1.add(view.radio2);
         radioList1.add(view.radio3);
@@ -55,19 +55,17 @@ class LogInPassword : Fragment() {
 
     private fun radio1true(length: Int) {
         for(i in 0..4 ){
-            if(i<length){
-                radioList1.get(i).isChecked
-            }
-            else{
-                radioList1.get(i).isChecked
+            if (i < length) {
+                radioList1[i].isChecked = true
+            } else {
+                radioList1[i].isChecked = false
             }
         }
     }
     private fun passwordCheck(s: String) {
         if(password1!!.length<=3){
             password1+=s
-            radioList1.get(password1!!.length)
-
+            radio1true(password1.length)
         }
 
         checkpaswordequal()
@@ -75,7 +73,7 @@ class LogInPassword : Fragment() {
 
     private fun checkpaswordequal() {
         if (password1!!.length==4 ){
-            if(password1.equals(sharedPreferenceManager!!.getString("password","00000000"))){
+            if(password1.equals(sharedPreferenceManager.getString("password","00000000"))){
                 textView.setVisibility(View.VISIBLE)
                 Toast.makeText(getActivity() , "succes login" ,Toast.LENGTH_SHORT).show()
                 /*val intent = Intent(this@Create_Password, ProfileActivity::class.java)

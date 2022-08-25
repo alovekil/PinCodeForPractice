@@ -2,37 +2,45 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_host"
-    app:startDestination="@id/createPassword">
+    android:id="@+id/login_navhost"
+    app:startDestination="@id/splash">
+
     <fragment
-        android:id="@+id/createPassword"
-        android:name="com.example.pin_codeforthepractice.CreatePassword"
-        android:label="CreatePassword" >
-        <action
-            android:id="@+id/action_createPassword_to_splashScreen"
-            app:destination="@id/splashScreen" />
-    </fragment>
-    <fragment
-        android:id="@+id/logInPassword"
-        android:name="com.example.pin_codeforthepractice.LogInPassword"
-        android:label="fragment_log_in_password"
-        tools:layout="@layout/fragment_log_in_password" >
-        <action
-            android:id="@+id/action_logInPassword_to_splashScreen"
-            app:destination="@id/splashScreen" />
-    </fragment>
-    <fragment
-        android:id="@+id/splashScreen"
-        android:name="com.example.pin_codeforthepractice.SplashScreen"
-        android:label="fragment_splash_screen"
+        android:id="@+id/splash"
+        android:label="fragment_splash"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/action_splashScreen_to_createPassword"
-            app:popUpTo="@id/splashScreen"
-            app:destination="@id/createPassword" />
+            android:id="@+id/navhost_splash_tologin"
+            app:destination="@id/login_Password2"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
         <action
-            app:popUpTo="@id/splashScreen"
-            android:id="@+id/action_splashScreen_to_logInPassword"
-            app:destination="@id/logInPassword" />
+            android:id="@+id/navhost_splash_tocreate"
+            app:destination="@id/create_Password3"
+            app:popUpTo="@id/splash"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/create_Password3"
+        android:label="fragment_create__password"
+        tools:layout="@layout/fragment_create_password" >
+        <action
+            android:id="@+id/navhost_create_to_login"
+            app:destination="@id/login_Password2"
+            app:popUpTo="@id/create_Password3"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/login_Password2"
+
+        android:label="fragment_login__password"
+        tools:layout="@layout/fragment_log_in_password" >
+        <action
+            android:id="@+id/navhost_login_tocreate"
+            app:destination="@id/create_Password3"
+            app:popUpTo="@id/login_Password2"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
