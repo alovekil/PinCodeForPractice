@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_host"
+    app:startDestination="@id/createPassword">
+    <fragment
+        android:id="@+id/createPassword"
+        android:name="com.example.pin_codeforthepractice.CreatePassword"
+        android:label="CreatePassword" >
+        <action
+            android:id="@+id/action_createPassword_to_splashScreen"
+            app:destination="@id/splashScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInPassword"
+        android:name="com.example.pin_codeforthepractice.LogInPassword"
+        android:label="fragment_log_in_password"
+        tools:layout="@layout/fragment_log_in_password" >
+        <action
+            android:id="@+id/action_logInPassword_to_splashScreen"
+            app:destination="@id/splashScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.example.pin_codeforthepractice.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_createPassword"
+            app:popUpTo="@id/splashScreen"
+            app:destination="@id/createPassword" />
+        <action
+            app:popUpTo="@id/splashScreen"
+            android:id="@+id/action_splashScreen_to_logInPassword"
+            app:destination="@id/logInPassword" />
+    </fragment>
+</navigation>
