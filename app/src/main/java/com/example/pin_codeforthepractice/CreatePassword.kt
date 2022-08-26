@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
+import com.example.pin_codeforthepractice.databinding.FragmentCreatePasswordBinding
 import kotlinx.android.synthetic.main.fragment_create_password.view.*
 
 
 class CreatePassword : Fragment() {
     lateinit var sharedPreferenceManager: SahredPreferenceManager
+    var binding: FragmentCreatePasswordBinding? = null
     var radioList1: ArrayList<RadioButton> = ArrayList()
     var radioList2: ArrayList<RadioButton> = ArrayList()
     var password1:String? = ""
@@ -28,29 +31,30 @@ class CreatePassword : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.fragment_create_password, container, false)
+        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_create_password, container, false)
+        val view=binding!!.root
         sharedPreferenceManager = SahredPreferenceManager()
-        radioList2.add(view.radio1);
-        radioList2.add(view.radio2);
-        radioList2.add(view.radio3);
-        radioList2.add(view.radio4);
-        radioList1.add(view.radio5);
-        radioList1.add(view.radio6);
-        radioList1.add(view.radio7);
-        radioList1.add(view.radio8);
-        view.btn0.setOnClickListener { view -> passwordCheck("0") }
-        view.btn1.setOnClickListener { view -> passwordCheck("1") }
-        view.btn2.setOnClickListener { view -> passwordCheck("2") }
-        view.btn3.setOnClickListener { view -> passwordCheck("3") }
-        view.btn4.setOnClickListener { view -> passwordCheck("4") }
-        view.btn5.setOnClickListener { view -> passwordCheck("5") }
-        view.btn6.setOnClickListener { view -> passwordCheck("6") }
-        view.btn7.setOnClickListener { view -> passwordCheck("7") }
-        view.btn8.setOnClickListener { view -> passwordCheck("8") }
-        view.btn9.setOnClickListener { view -> passwordCheck("9") }
+        radioList2.add(binding!!.radio1);
+        radioList2.add(binding!!.radio2);
+        radioList2.add(binding!!.radio3);
+        radioList2.add(binding!!.radio4);
+        radioList1.add(binding!!.radio5);
+        radioList1.add(binding!!.radio6);
+        radioList1.add(binding!!.radio7);
+        radioList1.add(binding!!.radio8);
+        binding!!.btn0.setOnClickListener { view -> passwordCheck("0") }
+        binding!!.btn1.setOnClickListener { view -> passwordCheck("1") }
+        binding!!.btn2.setOnClickListener { view -> passwordCheck("2") }
+        binding!!.btn3.setOnClickListener { view -> passwordCheck("3") }
+        binding!!.btn4.setOnClickListener { view -> passwordCheck("4") }
+        binding!!.btn5.setOnClickListener { view -> passwordCheck("5") }
+        binding!!.btn6.setOnClickListener { view -> passwordCheck("6") }
+        binding!!.btn7.setOnClickListener { view -> passwordCheck("7") }
+        binding!!.btn8.setOnClickListener { view -> passwordCheck("8") }
+        binding!!.btn9.setOnClickListener { view -> passwordCheck("9") }
 
-        view.btne.setOnClickListener { view -> this.activity?.finish() }
-        view.btnx.setOnClickListener { view ->
+        binding!!.btne.setOnClickListener { view -> this.activity?.finish() }
+        binding!!.btnx.setOnClickListener { view ->
             if (gpassword2!!.length > 0) {
                 gpassword2 = gpassword2!!.substring(0, gpassword2!!.length - 1)
                 radio2True(gpassword2!!.length)
